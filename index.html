@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="fr">
+  <head>
+    <meta charset="utf-8">
+    <title>Gestionnaire de tâche</title>
+
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <link rel="stylesheet" href="styles.css">
+
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/vue/2.3.4/vue.js"></script>
+  </head>
+  <body>
+    <div id="app">
+      <h1>Mes tâches</h1>
+
+      <ul>
+        <li class="item" v-for="item in todo" :class="item.done ? 'done' : ''" :key="item.id">
+          <span class="item__label">{{item.label}}</span>
+          <div class="item__actions">
+            <!-- pour en savoir plus sur aria => https://developer.mozilla.org/fr/docs/Accessibilit%C3%A9/ARIA -->
+            <button class="item__picto" type="button" @click="completeTask(item)" :aria-label="item.done ? 'À faire' : 'Fait'" :title="item.done ? 'À faire' : 'Fait'">
+              <i aria-hidden="true" class="material-icons">{{ item.done ? 'check_box' : 'check_box_outline_blank' }}</i>
+            </button>
+            <button class="item__picto" type="button" @click="deleteItem(item)" aria-label="Effacer" title="Effacer">
+              <i aria-hidden="true" class="material-icons">delete</i>
+            </button>
+          </div>
+        </li>
+      </ul>
+      <form >
+        <label for="newitem">Ajouter une tâche</label>
+        <input type="text" name="newitem" id="newitem" v-model="newitem">
+        <button type="submit"> Ajouter</button>
+      </form>
+    </div>
+    <script type="text/javascript" src="script.js"></script>
+  </body>
+</html>
